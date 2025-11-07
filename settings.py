@@ -18,11 +18,14 @@ INSTALLED_APPS = [
 
     # Custom app for IP tracking
     'ip_tracking',
+    'ratelimit',
 
     # Geolocation library
     'ipgeolocation',
 ]
 
+# Rate limit configuration (optional — for clarity/documentation)
+RATELIMIT_ENABLE = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
