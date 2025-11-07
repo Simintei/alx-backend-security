@@ -40,6 +40,20 @@ MIDDLEWARE = [
     'ip_tracking.middleware.IPBlockMiddleware',
 ]
 
+# Celery configuration
+CELERY_BROKER_URL = 'redis://localhost:6379/0'  # or your Redis server
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+
+# Run anomaly detection hourly
+from celery.schedules import crontab
+
+CELERY_BEAT_SCHEDULE = {
+    'detect-suspicious-ips-hourly': {
+        'task': 'ip_tracking.tasks.detect_suspicious_ips',
+        'schedule': crontab(minute=0, hour='*'),  # every hour
+    },
+}
+
 ROOT_URLCONF = 'project.urls'
 
 # ------------------------------------------------------------
